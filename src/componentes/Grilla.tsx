@@ -1,41 +1,32 @@
-import React, { FC, useEffect, useState } from "react";
-
-import { buscarPersonajes } from "../services/personaje.services";
-import { useSelector } from "../store/store";
+import React, {FC} from "react";
 import Personaje from "../types/personaje.types";
 
-const Grilla: FC = () => {
-  const busqueda = useSelector((estado) => estado.personajes.busqueda);
-  const [personajes, setPersonajes] = useState<Personaje[]>([]);
+type GrillaProps = {
+	personajes: Personaje[];
+};
 
-  useEffect(() => {
-    buscarPersonajes(busqueda).then((data: Personaje[]) => {
-      setPersonajes(data);
-    });
-  }, [busqueda]);
+const Grilla: FC<GrillaProps> = ({personajes}: GrillaProps) => {
+	if (personajes.length === 0) return <></>;
 
-  if (personajes.length === 0) return <></>;
-
-  return (
-    <div className="App-table" style={{ marginTop: 50 }}>
-      {personajes.map((personaje) => {
-        return (
-          <div
-            key={`key_${personaje.id}`}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              marginBottom: "20px"
-            }}
-          >
-            <label style={{ marginBottom: 5 }}>Nombre: {personaje.name}</label>
-            <img src={personaje.image} />
-          </div>
-        );
-      })}
-    </div>
-  );
+	return (
+		<div className="App-table" style={{marginTop: 50}}>
+			{personajes.map((personaje) => {
+				return (
+					<div key={personaje.id}
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+              marginBottom: "20px",
+						}}
+					>
+						<label style={{marginBottom: 5}}>Nombre: {personaje.name}</label>
+						<img src={personaje.image} />
+					</div>
+				);
+			})}
+		</div>
+	);
 };
 
 export default Grilla;

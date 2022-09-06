@@ -1,27 +1,19 @@
-import React, { FC } from "react";
-import { useDispatch } from "react-redux";
-import { buscarPersonajes } from "../acciones/personaje.acciones";
-import { useSelector } from "../store/store";
+import React, {FC} from "react";
 
-const Buscador: FC = () => {
-  // const {busqueda} = useSelector(estado => estado.personajes)
-  const busqueda = useSelector((estado) => estado.personajes.busqueda);
-  const dispatch = useDispatch();
+type BuscadorProps = {
+    buscador: string;
+    setBuscador: (query: string) => void
+}
 
-  return (
-    <div className="App-table">
-      <div>
-        <label>Buscar por Nombre: </label>
-        <input
-          type="text"
-          value={busqueda}
-          onChange={(e) => dispatch(buscarPersonajes(e.target.value))}
-          placeholder="Rick, Morty, etc"
-          autoFocus={true}
-        />
-      </div>
+const Buscador:FC<BuscadorProps> = ({buscador, setBuscador}:BuscadorProps) => {
+
+    return <div className="App-table">
+        <div>
+            <label>Buscar por Nombre: </label>
+            <input type="text" value={buscador} onChange={(e)=> setBuscador(e.target.value)}
+                   placeholder="Rick, Morty, etc" autoFocus={true}/>
+        </div>
     </div>
-  );
-};
+}
 
 export default Buscador;
