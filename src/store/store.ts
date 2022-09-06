@@ -14,12 +14,13 @@ const raizReductora = combineReducers({
 export type EstadoGlobal = ReturnType<typeof raizReductora>;
 export const useSelector: TypedUseSelectorHook<EstadoGlobal> = useReduxSelector;
 
+// Redux dev tools
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
-
+// Redux dev tools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(raizReductora, composeEnhancers());
